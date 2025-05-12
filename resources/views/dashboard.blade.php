@@ -1,4 +1,4 @@
-@include('head');
+@include('head')
 <!-- Main content -->
 <main class="container-fluid p-4 flex-grow-1">
     <div class="row">
