@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Book;
+use App\Models\User;
 use Illuminate\Http\Request;
 
 class BookController extends Controller
@@ -68,5 +69,11 @@ class BookController extends Controller
         $book->save();
 
         return redirect()->route('books.index')->with('success', 'Book deleted successfully');
+    }
+
+    public function student()
+    {
+        $students = User::where('role', 'student')->get(); // Filter by role if applicable
+        return view('student', compact('students'));
     }
 }

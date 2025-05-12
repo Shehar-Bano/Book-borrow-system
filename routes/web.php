@@ -36,6 +36,7 @@ Route::middleware(['auth'])->group(function () {
     Route::delete('books/destroy/{id}', [BookController::class, 'destroy'])->name('books.destroy');
     Route::get('/borrow-requests', [BorrowRequestController::class, 'index']);
     Route::post('/borrow-requests', [BorrowRequestController::class, 'store'])->name('borrow_requests.store'); // for students
+    Route::get('/students', [BookController::class, 'student'])->name('students.index');
 
 });
 

@@ -21,7 +21,7 @@
                     <li><a href="{{ url('books') }}" class="d-block px-4 py-2 hover:bg-gray-100">Books</a></li>
                     <li><a href="{{ url('/borrow-requests') }}" class="d-block px-4 py-2 hover:bg-gray-100">Borrow
                             Requests</a></li>
-                    <li><a href="#" class="d-block px-4 py-2 hover:bg-gray-100">Students</a></li>
+                    <li><a href="{{ url('/students') }}" class="d-block px-4 py-2 hover:bg-gray-100">Students</a></li>
                 </ul>
             </nav>
 
