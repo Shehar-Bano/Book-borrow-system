@@ -34,7 +34,7 @@
                                 <td>{{ $student->created_at->format('Y-m-d') }}</td>
                                 <td>{{ $request->book->title }}</td> <!-- Display Book Name -->
                                 <td>{{ $request->request_date }}</td> <!-- Display Request Date -->
-                                <td>{{ $request->returned_date ?? 'Not Returned' }}
+                                <td>{{ $request->return_date }}
                                 </td> <!-- Display Returned Date -->
                                 <td>{{ ucfirst($request->status) }}</td> <!-- Display Status -->
                             </tr>
