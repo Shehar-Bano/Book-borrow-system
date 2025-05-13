@@ -25,7 +25,7 @@ class BorrowRequestController extends Controller
         if ($user->role === 'admin') {
             $borrowRequests = BorrowRequest::with('book', 'user')->get();
 
-            return view('borrow.index', compact('borrowRequests'));
+            return view('borrow.admin_index', compact('borrowRequests'));
         }
     }
     // Student: request a book
