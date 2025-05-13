@@ -11,22 +11,28 @@ use Illuminate\Support\Facades\Mail;
 class BorrowRequestController extends Controller
 {
     // Shared index (can filter by role if needed)
-    public function index()
+    public function adminIndex()
     {
         $user = auth()->user();
 
-        if ($user->role === 'student') {
-            $books = Book::where('status', 'available')->get();
-            $borrowRequests = BorrowRequest::where('user_id', $user->id)->with('book')->get();
 
-            return view('borrow.index', compact('books', 'borrowRequests'));
-        }
+        $borrowRequests = BorrowRequest::with('book', 'user')->get();
 
-        if ($user->role === 'admin') {
-            $borrowRequests = BorrowRequest::with('book', 'user')->get();
+        return view('borrow.admin_index', compact('borrowRequests'));
 
-            return view('borrow.admin_index', compact('borrowRequests'));
-        }
+    }
+    public function studentIndex()
+    {
+        $user = auth()->user();
+
+
+        $books = Book::where('status', 'available')->get();
+        $borrowRequests = BorrowRequest::where('user_id', $user->id)->with('book')->get();
+
+        return view('borrow.index', compact('books', 'borrowRequests'));
+
+
+
     }
     // Student: request a book
     public function store(Request $request)

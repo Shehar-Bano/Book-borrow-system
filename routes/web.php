@@ -59,7 +59,7 @@ Route::middleware(['auth', 'verified'])->group(function () {
 |--------------------------------------------------------------------------
 */
 Route::middleware(['auth', 'role:student'])->group(function () {
-    Route::get('/borrow-requests', [BorrowRequestController::class, 'index'])->name('borrow_requests.index');
+    Route::get('/borrow-requests/student', [BorrowRequestController::class, 'studentIndex'])->name('borrow_requests_student');
 
     // Create a new borrow request
     Route::post('/borrow-requests/store', [BorrowRequestController::class, 'store'])->name('borrow_requests.store');
@@ -91,7 +91,7 @@ Route::middleware(['auth', 'role:admin'])->group(function () {
         Route::get('/returned/{id}', [BorrowRequestController::class, 'markAsReturned'])->name('borrow_requests.returned');
     });
     Route::get('/students', [BookController::class, 'student'])->name('students.index');
-    Route::get('/borrow-requests', [BorrowRequestController::class, 'index'])->name('borrow_requests.index');
+    Route::get('/borrow-requests/admin', [BorrowRequestController::class, 'adminIndex'])->name('borrow_requests_admin');
 
 });
 

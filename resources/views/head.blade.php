@@ -36,16 +36,24 @@
                             </a>
 
                         </li>
+
+                        <li>
+                            <a href="{{ route('borrow_requests_admin') }}"
+                                class="d-flex align-items-center px-4 py-2 text-dark text-decoration-none hover:bg-gray-100">
+                                <i class="bi bi-journal-check me-2"></i> Borrow Requests
+                            </a>
+                        </li>
                     @endif
-                    <li>
-                        <a href="{{ route('borrow_requests.index') }}"
-                            class="d-flex align-items-center px-4 py-2 text-dark text-decoration-none hover:bg-gray-100">
-                            <i class="bi bi-journal-check me-2"></i> Borrow Requests
-                        </a>
-                    </li>
+                    @if (auth()->user()->role === 'student')
+                        <li>
+                            <a href="{{ route('borrow_requests_student') }}"
+                                class="d-flex align-items-center px-4 py-2 text-dark text-decoration-none hover:bg-gray-100">
+                                <i class="bi bi-journal-check me-2"></i> Borrow Requests
+                            </a>
+                        </li>
+                    @endif
                     @if (auth()->user()->role !== 'student')
                         <li>
-
                             <a href="{{ url('/students') }}"
                                 class="d-flex align-items-center px-4 py-2 text-dark text-decoration-none hover:bg-gray-100">
                                 <i class="bi bi-people me-2"></i> Students
