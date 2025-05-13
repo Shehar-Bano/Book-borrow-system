@@ -73,7 +73,7 @@ class BookController extends Controller
 
     public function student()
     {
-        $students = User::where('role', 'student')->get(); // Filter by role if applicable
+        $students = User::where('role', 'student')->with('borrowRequests.book')->get(); // Filter by role if applicable
         return view('student', compact('students'));
     }
 }

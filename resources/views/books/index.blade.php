@@ -1,80 +1,118 @@
 @include('head')
 <!-- Main content -->
 <div class="container">
-    <h1>Add New Book</h1>
+    <h1 class="my-4">Add New Book</h1>
 
-    <form action="{{ url('books/store') }}" method="POST">
-        @csrf
-        <div class="form-group">
-            <label for="title">Title</label>
-            <input type="text" name="title" id="title" class="form-control" required>
+    <!-- Book Form Card -->
+    <div class="card mb-4">
+        <div class="card-header">
+            <strong>Book Information</strong>
         </div>
-        <div class="form-group">
-            <label for="author">Author</label>
-            <input type="text" name="author" id="author" class="form-control" required>
-        </div>
-        <div class="form-group">
-            <label for="category">Category</label>
-            <input type="text" name="category" id="category" class="form-control" required>
-        </div>
-        <div class="form-group">
-            <label for="copies_available">Copies Available</label>
-            <input type="number" name="copies_available" id="copies_available" class="form-control" min="1"
-                required>
-        </div>
-        <div class="form-group">
-            <label for="description">Description</label>
-            <textarea name="description" id="description" class="form-control"></textarea>
-        </div>
-        <div class="form-group">
-            <label for="status">Status</label>
-            <select name="status" id="status" class="form-control" required>
-                <option value="available">Available</option>
-                <option value="unavailable">Unavailable</option>
-            </select>
-        </div>
+        <div class="card-body">
+            <form action="{{ url('books/store') }}" method="POST">
+                @csrf
 
-        <button type="submit" class="btn btn-primary mt-3">Add Book</button>
-    </form>
-    <div class="container">
-        <h1>All Books</h1>
+                <div class="row">
+                    <div class="form-group col-md-6">
+                        <label for="title">Title</label>
+                        <input type="text" name="title" id="title" class="form-control" required>
+                    </div>
 
-        <table class="table table-bordered">
-            <thead>
-                <tr>
-                    <th>#</th>
-                    <th>Title</th>
-                    <th>Author</th>
-                    <th>Category</th>
-                    <th>Copies Available</th>
-                    <th>Status</th>
-                    <th>Actions</th>
-                </tr>
-            </thead>
-            <tbody>
-                @foreach ($books as $book)
+                    <div class="form-group col-md-6">
+                        <label for="author">Author</label>
+                        <input type="text" name="author" id="author" class="form-control" required>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="form-group col-md-6">
+                        <label for="category">Category</label>
+                        <input type="text" name="category" id="category" class="form-control" required>
+                    </div>
+
+                    <div class="form-group col-md-6">
+                        <label for="copies_available">Copies Available</label>
+                        <input type="number" name="copies_available" id="copies_available" class="form-control"
+                            min="1" required>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="form-group col-md-6">
+                        <label for="status">Status</label>
+                        <select name="status" id="status" class="form-control" required>
+                            <option value="available">Available</option>
+                            <option value="unavailable">Unavailable</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group col-md-6">
+                        <label for="description">Description</label>
+                        <textarea name="description" id="description" class="form-control"></textarea>
+                    </div>
+                </div>
+
+                <button type="submit" class="btn btn-primary mt-3">Add Book</button>
+            </form>
+        </div>
+    </div>
+    @if (session('success'))
+        <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+        <script>
+            Swal.fire({
+                icon: 'success',
+                title: 'Success!',
+                text: '{{ session('success') }}',
+                confirmButtonColor: '#3085d6'
+            });
+        </script>
+    @endif
+
+    <!-- Book List Card -->
+    <div class="card">
+        <div class="card-header">
+            <strong>All Books</strong>
+        </div>
+        <div class="card-body">
+            <table class="table table-bordered table-hover">
+                <thead class="thead-light">
                     <tr>
-                        <td>{{ $book->id }}</td>
-                        <td>{{ $book->title }}</td>
-                        <td>{{ $book->author }}</td>
-                        <td>{{ $book->category }}</td>
-                        <td>{{ $book->copies_available }}</td>
-                        <td>{{ $book->status }}</td>
-                        <td>
-                            <a href="{{ url('books/edit', $book->id) }}" class="btn btn-warning btn-sm">Edit</a>
-                            <form action="{{ url('books/destroy', $book->id) }}" method="POST" style="display:inline;">
-                                @csrf
-                                @method('DELETE')
-                                <button type="submit" class="btn btn-danger btn-sm"
-                                    onclick="return confirm('Are you sure you want to delete this book?')">Delete</button>
-                            </form>
-                        </td>
+                        <th>#</th>
+                        <th>Title</th>
+                        <th>Author</th>
+                        <th>Category</th>
+                        <th>Copies</th>
+                        <th>Status</th>
+                        <th>Actions</th>
                     </tr>
-                @endforeach
-            </tbody>
-        </table>
+                </thead>
+                <tbody>
+                    @foreach ($books as $book)
+                        <tr>
+                            <td>{{ $book->id }}</td>
+                            <td>{{ $book->title }}</td>
+                            <td>{{ $book->author }}</td>
+                            <td>{{ $book->category }}</td>
+                            <td>{{ $book->copies_available }}</td>
+                            <td>{{ ucfirst($book->status) }}</td>
+                            <td>
+                                <a href="{{ url('books/edit', $book->id) }}" class="btn btn-warning btn-sm">Edit</a>
+                                <form action="{{ url('books/destroy', $book->id) }}" method="POST"
+                                    style="display:inline;">
+                                    @csrf
+                                    @method('DELETE')
+                                    <button type="submit" class="btn btn-danger btn-sm"
+                                        onclick="return confirm('Are you sure you want to delete this book?')">Delete</button>
+                                </form>
+                            </td>
+                        </tr>
+                    @endforeach
+                </tbody>
+            </table>
+        </div>
     </div>
 </div>
+
 
 
 

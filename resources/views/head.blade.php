@@ -5,6 +5,9 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Dashboard</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
 </head>
 
@@ -17,13 +20,41 @@
             </div>
             <nav class="mt-4 flex-grow-1">
                 <ul class="list-unstyled text-gray-700">
-                    <li><a href="{{ url('/dashboard') }}" class="d-block px-4 py-2 hover:bg-gray-100">Dashboard</a></li>
-                    <li><a href="{{ url('books') }}" class="d-block px-4 py-2 hover:bg-gray-100">Books</a></li>
-                    <li><a href="{{ url('/borrow-requests') }}" class="d-block px-4 py-2 hover:bg-gray-100">Borrow
-                            Requests</a></li>
-                    <li><a href="{{ url('/students') }}" class="d-block px-4 py-2 hover:bg-gray-100">Students</a></li>
+                    <li>
+                        <a href="{{ url('/dashboard') }}"
+                            class="d-flex align-items-center px-4 py-2 text-dark text-decoration-none hover:bg-gray-100">
+                            <i class="bi bi-speedometer2 me-2"></i> Dashboard
+                        </a>
+                    </li>
+                    @if (auth()->user()->role !== 'student')
+                        <li>
+                            <!-- Check if the role is not student -->
+
+                            <a href="{{ url('books') }}"
+                                class="d-flex align-items-center px-4 py-2 text-dark text-decoration-none hover:bg-gray-100">
+                                <i class="bi bi-book me-2"></i> Books
+                            </a>
+
+                        </li>
+                    @endif
+                    <li>
+                        <a href="{{ route('borrow_requests.index') }}"
+                            class="d-flex align-items-center px-4 py-2 text-dark text-decoration-none hover:bg-gray-100">
+                            <i class="bi bi-journal-check me-2"></i> Borrow Requests
+                        </a>
+                    </li>
+                    @if (auth()->user()->role !== 'student')
+                        <li>
+
+                            <a href="{{ url('/students') }}"
+                                class="d-flex align-items-center px-4 py-2 text-dark text-decoration-none hover:bg-gray-100">
+                                <i class="bi bi-people me-2"></i> Students
+                            </a>
+                        </li>
+                    @endif
                 </ul>
             </nav>
+
 
             <!-- User Dropdown -->
             <div class="dropdown mt-auto">
