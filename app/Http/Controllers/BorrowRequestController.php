@@ -69,7 +69,7 @@ class BorrowRequestController extends Controller
         // Send email to user
         Mail::to($request->user->email)->send(new BorrowRequestStatus($request, 'accepted'));
 
-        return redirect()->route('borrow_requests.index')->with('success', 'Request accepted and user notified!');
+        return redirect()->route('borrow_requests_admin')->with('success', 'Request accepted and user notified!');
     }
 
     public function reject($id)
@@ -81,7 +81,7 @@ class BorrowRequestController extends Controller
         // Send email to user
         Mail::to($request->user->email)->send(new BorrowRequestStatus($request, 'rejected'));
 
-        return redirect()->route('borrow_requests.index')->with('success', 'Request rejected and user notified!');
+        return redirect()->route('borrow_requests_admin')->with('success', 'Request rejected and user notified!');
     }
     public function markAsReturned($id)
     {
@@ -90,7 +90,7 @@ class BorrowRequestController extends Controller
         $request->save();
         Mail::to($request->user->email)->send(new BorrowRequestStatus($request, 'returned'));
 
-        return redirect()->route('borrow_requests.index')->with('success', 'Book marked as returned.');
+        return redirect()->route('borrow_requests_admin')->with('success', 'Book marked as returned.');
     }
 
     public function status()
